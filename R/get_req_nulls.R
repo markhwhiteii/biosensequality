@@ -13,7 +13,6 @@
 #' @param data The raw data from BioSense on which you will do the null checks.
 #' @return A summary data frame that lists counts and percentages for null fields, summarized at facility-level.
 #' @import dplyr
-#' @import magrittr
 #' @import tidyr
 #' @export
 get_req_nulls <- function(data) {
@@ -40,13 +39,13 @@ get_req_nulls <- function(data) {
     group_by(C_Biosense_Facility_ID) %>% # group by facility
     summarise_at(req_all_fields, # summarise at fields required for all messages
                  funs(round(sum(is.na(.))/length(.)*100,2))) %>% # percentage of nulls in a given field
-    set_colnames(c("C_Biosense_Facility_ID", req_all_pctnames)) # set column names based on those saved above
+    magrittr::set_colnames(c("C_Biosense_Facility_ID", req_all_pctnames)) # set column names based on those saved above
   
   count_nulls_req_all <- data %>% # take data
     group_by((C_Biosense_Facility_ID)) %>%  # group by facility
     summarise_at(req_all_fields, # summarise at fields required for all messages
                  funs(sum(is.na(.)))) %>% # sum all na values in a given field
-    set_colnames(c("C_Biosense_Facility_ID", req_all_cntnames)) # set column names based on those saved above
+    magrittr::set_colnames(c("C_Biosense_Facility_ID", req_all_cntnames)) # set column names based on those saved above
   
   # getting required on one message per visit summaries
   pct_nulls_req_pv <- data %>% # take data
@@ -61,7 +60,7 @@ get_req_nulls <- function(data) {
     group_by(C_Biosense_Facility_ID) %>% # regroup by facility
     summarise_at(req_pv_fields, # summarise at fields required once per patient visit
                  funs(round(mean(., na.rm=TRUE)*100,2))) %>% # take the mean (i.e., proportion true), multiply and round to get a percentage
-    set_colnames(c("C_Biosense_Facility_ID", req_pv_pctnames)) # renaming columns
+    magrittr::set_colnames(c("C_Biosense_Facility_ID", req_pv_pctnames)) # renaming columns
   
   count_nulls_req_pv <- data %>% # take data
     group_by(C_BioSense_ID) %>% # group by patient visit
@@ -74,7 +73,7 @@ get_req_nulls <- function(data) {
     ungroup() %>% # explicitly ungroup
     group_by(C_Biosense_Facility_ID) %>% # regroup by facility
     summarise_at(req_pv_fields, funs(sum(., na.rm=TRUE))) %>% # take the number of trues (missing in all) per each group
-    set_colnames(c("C_Biosense_Facility_ID", req_pv_cntnames)) # renaming columns
+    magrittr::set_colnames(c("C_Biosense_Facility_ID", req_pv_cntnames)) # renaming columns
   
   return(
     pct_nulls_req_all %>% # take stuff from above...

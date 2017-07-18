@@ -8,7 +8,6 @@
 #' @param data The raw data from BioSense on which you will do the null checks.
 #' @return A summary data frame that lists counts and percentages for null fields, summarized at facility-level.
 #' @import dplyr
-#' @importFrom magrittr set_colnames
 #' @import tidyr
 #' @export
 get_opt_nulls <- function(data) {
@@ -34,7 +33,7 @@ get_opt_nulls <- function(data) {
     group_by(C_Biosense_Facility_ID) %>% # regroup by facility
     summarise_at(opt_pv_fields, # summarise at the given fields above
                  funs(round(mean(., na.rm=TRUE)*100,2))) %>% # take mean (i.e., proportion true), round to get a percentage
-    set_colnames(c("C_Biosense_Facility_ID", opt_pv_pctnames))
+    magrittr::set_colnames(c("C_Biosense_Facility_ID", opt_pv_pctnames))
   
   # count nulls for optional fields
   cnt <- data %>% # take data
@@ -49,7 +48,7 @@ get_opt_nulls <- function(data) {
     group_by(C_Biosense_Facility_ID) %>% # regroup by facility
     summarise_at(opt_pv_fields, # summarise at the given fields above
                  funs(sum(., na.rm=TRUE))) %>% # take mean (i.e., proportion true), round to get a percentage
-    set_colnames(c("C_Biosense_Facility_ID", opt_pv_cntnames))
+    magrittr::set_colnames(c("C_Biosense_Facility_ID", opt_pv_cntnames))
   
   return(
     pct %>% # take stuff from above...
