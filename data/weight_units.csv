@@ -1,0 +1,5 @@
+Concept Code;Concept Name;Preferred Concept Name;Preferred Alternate Code;Code System OID;Code System Name;Code System Code;Code System Version;HL7 Table 0396 Code
+g;gram;gram [mass];;2.16.840.1.113883.6.8;UCUM - Unified Code for Units of Measure;PH_UnitsOfMeasure_UCUM;1.7;UCUM
+kg;KiloGram [SI Mass Units];KiloGram [SI Mass Units];;2.16.840.1.113883.6.8;UCUM - Unified Code for Units of Measure;PH_UnitsOfMeasure_UCUM;1.7;UCUM
+[oz_av];ounce;ounce [mass];;2.16.840.1.113883.6.8;UCUM - Unified Code for Units of Measure;PH_UnitsOfMeasure_UCUM;1.7;UCUM
+[lb_av];pound;pound [mass];;2.16.840.1.113883.6.8;UCUM - Unified Code for Units of Measure;PH_UnitsOfMeasure_UCUM;1.7;UCUM
