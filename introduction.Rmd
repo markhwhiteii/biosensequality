@@ -59,7 +59,7 @@ This function does the exact same as above, except it skips Step 1 of pulling do
 
 ```{r eval=FALSE}
 library(biosensequality)
-write_reports(data=df, fnames=namekey,
+write_reports_local(data=df, fnames=namekey,
               directory="~/Documents/JuneReports",
               nexamples=20)
 ```
