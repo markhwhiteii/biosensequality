@@ -13,7 +13,7 @@ The purpose of this package is to make it easy to produce automated data quality
 
 ## Preparation
 
-If you want to use this data to both pull data *and* generate reports, it requires a connection to a database named "BioSense_Platform" with a username that is prepended with "BIOSENSE\\". This is the same log-in information that we use here at Kansas Department of Health and Environment (KDHE) Syndromic Surveillance to log-in to Adminer and RStudio Server. If you do not want to connect with RODBC or have the data stored locally, you can also use functions here that will skip the pulling data aspect and just focus on generating reports. You must make sure that the variables are named exactly the same as they were when you pulled them from **processed** tables in the database.  
+If you want to use this data to both pull data *and* generate reports, it requires a connection to a database named "BioSense_Platform" with a username that is prepended with "BIOSENSE\\". This is the same log-in information that we use here at Kansas Department of Health and Environment (KDHE) Syndromic Surveillance to log-in to Adminer and RStudio Server. If you do not want to connect with RODBC or have the data stored locally, you can also use functions here that will skip the pulling data aspect and just focus on generating reports. You must make sure that the variables are named exactly the same as they were when you pulled them from **processed** tables in the database.
 
 This package can be downloaded from GitHub using the `devtools` package. If you do not have the `devtools` package, it can be installed by running `install.packages("devtools")`. After this, you can install the `biosensequality` package by running `devtools::install_github("markhwhiteii/biosensequality")` in the console. Then, just like any other package, you load it in your R session using `library(biosensequality)`.  
 
@@ -55,7 +55,7 @@ write_reports(username="lskywalker", password="xwingred5",
 
 ### `write_reports_local`
 
-This function does the exact same as above, except it skips Step 1 of pulling down all of the data. The user must provide data themselves. Let's say someone wanted to do write the same reports as above, but they loaded the data into their R session as `df` and `namekey` already. They would enter:  
+This function does the exact same as above, except it skips Step 1 of pulling down all of the data. The user must provide data themselves. Let's say someone wanted to do write the same reports as above, but they loaded the data into their R session as `df` and `namekey` already (see the documentation, `?write_reports_local`, for how the two data frames should look). They would enter:  
 
 ```{r eval=FALSE}
 library(biosensequality)
