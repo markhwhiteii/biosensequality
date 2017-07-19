@@ -8,3 +8,7 @@ This package can be installed using the `devtools` package. If you do not have t
 After this, you can install the `biosensequality` package using the `install_github` function from `devtools`:
 
 `devtools::install_github("markhwhiteii/biosensequality")`
+
+**Getting Started**
+
+Take a look at the introduction.Rmd document for an introductory vignette to show you how to get the package up-and-running.
