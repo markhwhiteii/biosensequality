@@ -9,7 +9,7 @@ certification in anticipation of covered skilled care";;2.16.840.1.113883.12.112
 04;"Discharged/transferred to a facility that provides custodial or supportive 
 care";"Discharged/transferred to a facility that provides custodial or supportive 
 care";;2.16.840.1.113883.12.112;Discharge Disposition (HL7);PH_DischargeDisposition_HL7_2x;HL7 v2.5;HL70112
-05;Discharged/transferred to a designated cancer center or children’s hospital;Discharged/transferred to a designated cancer center or children’s hospital;;2.16.840.1.113883.12.112;Discharge Disposition (HL7);PH_DischargeDisposition_HL7_2x;HL7 v2.5;HL70112
+05;Discharged/transferred to a designated cancer center or childrens hospital;Discharged/transferred to a designated cancer center or childrens hospital;;2.16.840.1.113883.12.112;Discharge Disposition (HL7);PH_DischargeDisposition_HL7_2x;HL7 v2.5;HL70112
 06;"Discharged/transferred to home under care of organized home health service 
 organization in anticipation of covered skilled care";"Discharged/transferred to home under care of organized home health service 
 organization in anticipation of covered skilled care";;2.16.840.1.113883.12.112;Discharge Disposition (HL7);PH_DischargeDisposition_HL7_2x;HL7 v2.5;HL70112
