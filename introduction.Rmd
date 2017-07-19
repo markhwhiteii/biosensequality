@@ -17,6 +17,8 @@ If you want to use this package to both pull data *and* generate reports, it req
 
 This package can be downloaded from GitHub using the `devtools` package. If you do not have the `devtools` package, it can be installed by running `install.packages("devtools")`. After this, you can install the `biosensequality` package by running `devtools::install_github("markhwhiteii/biosensequality")` in the console. Then, just like any other package, you load it in your R session using `library(biosensequality)`.  
 
+**A quick note on time:** The `write_reports` function (discussed next) can take a long time to run; I ran it recently on 353,372 records across about 80 facilities, setting `nexamples` (discussed below) to 100, and it took 58 minutes and 15 seconds to pull the data down, summarize it all, generate examples, and write the about 160 Excel workbook reports.  
+
 ## Main Functions
 
 The two main functions in this package are `write_reports` and `write_reports_local`.  
