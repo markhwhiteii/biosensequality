@@ -1,0 +1,65 @@
+---
+title: "An Introduction to `biosensequality`"
+author: "Mark White"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The purpose of this package is to make it easy to produce automated data quality reports for the National Syndromic Surveillance Program's (NSSP) BioSense Platform. Data from this platform are emergency department records. Functions in this package will track null fields and invalid field entries, returning counts and percentages for each of these checks at both the facility and state-wide level. (Note: If the table you are querying from is not an entire state, then these checks are done table-wide). Functions in this package will also generate timeliness reports: How long was the average lag between a time when a patient visited the emergency department and when the NSSP received the first record for that visit?  
+
+## Preparation
+
+If you want to use this data to both pull data *and* generate reports, it requires a connection to a database named "BioSense_Platform" with a username that is prepended with "BIOSENSE\\". This is the same log-in information that we use here at Kansas Department of Health and Environment (KDHE) Syndromic Surveillance to log-in to Adminer and RStudio Server. If you do not want to connect with RODBC or have the data stored locally, you can also use functions here that will skip the pulling data aspect and just focus on generating reports. You must make sure that the variables are named exactly the same as they were when you pulled them from **processed** tables in the database.  
+
+This package can be downloaded from GitHub using the `devtools` package. If you do not have the `devtools` package, it can be installed by running `install.packages("devtools")`. After this, you can install the `biosensequality` package by running `devtools::install_github("markhwhiteii/biosensequality")` in the console. Then, just like any other package, you load it in your R session using `library(biosensequality)`.  
+
+## Main Functions
+
+The two main functions in this package are `write_reports` and `write_reports_local`.  
+
+### `write_reports`
+
+This function calls upon nearly all of the other functions in the package to run the entire quality report generation. Here's what it does:  
+
+1. Executes a SQL query to a database named BioSense_Platform and a specific table that you call. Note that this function is only going to run on the **processed** tables; that is, it is not capable of parsing raw HL7 messages from facilities. For the call to the processed table, it will draw down all variables for records where the visit date was between two dates that you specify. The function will also make a query to the master facilities table (MFT) that you specify, pulling down all rows but only the C_Biosense_Facility_ID and Facility_Name columns. This second call is just so that we are able to identify facilities by their name and not just facility ID number. The function uses the `RODBC` package to make these queries. If you wish to make a pull using this function *outside* of the `write_reports` function, please see the documentation for `pull_data`.  
+  
+2. Checks how many fields are null. This is done along a specific process: first, there are required and optional fields. We determined these as "required" or "optional" based on the Public Health Information Network (PHIN) guide and what we needed at KDHE; second, some are counted null at the record level, while others are counted null at the visit level. What does this second point mean? We can get multiple records sent to us for one patient's visit. A small number of fields are required to be non-null for *every single record*. A list of these can be found in the `get_req_nulls` documentation. For these few fields, the null check will count how many records have these fields as null and will also generate a percentage for null fields (where the number of total records is the denominator). For all of the others, we only count it as null if it was null in *all of the records for one patient visit.* This means that the percentages are based on the denominator that is the *number of patient visits*.  
+  
+3. Checks how many fields are invalid. If fields are filled in, are they filled in correctly? Invalid checks are done based on the PHIN VADS value codes, found [at the NSSP website](https://phinvads.cdc.gov/vads/ViewView.action?name=Syndromic%20Surveillance). An entire list of invalid checks and full details on what is checked can be found at the documentation for all of the functions that end with `_invalid`, such as `admit_source_invalid`. This package also includes datasets that include that concept codes or concept names that are considered valid by the PHIN VADS. See the documentation for `*_invalid` functions to see these. These are done at the patient visit level (i.e., grouped by C_BioSense_ID). If one field from this visit is entered as invalid, then the whole visit gets returned as invalid. Therefore, percentages are calculated with the number of patient visits as the denominator.  
+
+4. All of the previous checks are done grouped by facility. This function also generates the counts and percentages at the state level (or table level, if your processed table is not pulling down data from the entire state).  
+
+5. Timeliness reports. For each facility, this function will calculate the average time, in hours, between (a) when the patient visited the emergency department and (b) when the first record for this visit arrived to the NSSP BioSense Platform.  
+
+6. Writes an Excel workbook to a specified directory called "State_Summary" that includes information described in 2 through 5.  
+
+7. Writes a similar Excel workbook for *every single facility in the raw data*. In these facility-specific workbooks, only that facility (and the statewide information) is presented.
+
+8. Writes an Excel workbook for *every single facility in the raw data* that includes examples of records that are null or invalid, specifying which fields are invalid. You can specify how many examples you want for every type of check. If you do not want example workbooks to be written, you can specify `0` as the number of examples.
+
+What does this look like? For example, let's say someone with a username `lskywalker` with password xwingred5 wanted data from the Kansas production data (KS_PR_Processed table) for the month of June. He wanted these reports to be saved to a folder called "JuneReports" in this "Documents" folder, and he wants 20 null and invalid examples per field. He would open the R session and enter:
+
+```{r eval=FALSE}
+library(biosensequality)
+write_reports(username="lskywalker", password="xwingred5", 
+              table="KS_PR_Processed", mft="KS_MFT",
+              start="2017-06-01", end="2017-06-00",
+              directory="~/Documents/JuneReports",
+              nexamples=20)
+```
+
+
+### `write_reports_local`
+
+This function does the exact same as above, except it skips Step 1 of pulling down all of the data. The user must provide data themselves. Let's say someone wanted to do write the same reports as above, but they loaded the data into their R session as `df` and `namekey` already. They would enter:  
+
+```{r eval=FALSE}
+library(biosensequality)
+write_reports(data=df, fnames=namekey,
+              directory="~/Documents/JuneReports",
+              nexamples=20)
+```
