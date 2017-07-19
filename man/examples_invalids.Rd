@@ -16,7 +16,5 @@ A data frame containing the patient-visit IDs and fields for this visit that wer
 }
 \description{
 NOTE: THIS FUNCTION IS NOT MEANT TO BE USED ON ITS OWN. IT IS USED INTERNALLY BY `write_reports`.
-}
-\details{
 This function will return the C_BioSense_ID and field name for patient-visits where the entry was invalid.
 }

@@ -15,14 +15,11 @@ A list of two data frames: examples and summary for the Patient_State.
 \description{
 This function will generate two data frames: first, a frame to be used later to extract invalid examples from;
 second, a frame that contains facility-level summaries for counts and percentages of invalid Patient_State.
+The valid values were taken from the `PHVS_State_FIPS_5-2_V1.xls` file from 
+Public Health Information Network Vocabulary Access and Distribution System value sets.
 }
 \details{
-The valid values were taken from the `PHVS_State_FIPS_5-2_V1.xls` file from 
-Public Health Information Network Vocabulary Access and Distribution System value sets
-(https://phinvads.cdc.gov/vads/ViewView.action?name=Syndromic%20Surveillance). The package will
-be updated as the CDC provides new or different codes that are considered valid or invalid.
-
-You can view the concept codes that are considered valid by calling `data("state")`. This data frame
+You can view the concept codes that are considered valid by calling data("state"). This data frame
 leaves off the zeros in front of single-digit codes; codes with zeros in front of them are explicitly added
 in the code for the function.
 }

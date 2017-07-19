@@ -15,12 +15,9 @@ A list of two data frames: examples and summary for invalid Facility_Type.
 \description{
 This function will generate two data frames: first, a frame to be used later to extract invalid examples from;
 second, a frame that contains facility-level summaries for counts and percentages of invalid Facility_Type.
+The valid values were taken from the `PHVS_FacilityVisitType_SyndromicSurveillance_V3.xls` file from 
+Public Health Information Network Vocabulary Access and Distribution System value sets.
 }
 \details{
-The valid values were taken from the `PHVS_FacilityVisitType_SyndromicSurveillance_V3.xls` file from 
-Public Health Information Network Vocabulary Access and Distribution System value sets
-(https://phinvads.cdc.gov/vads/ViewView.action?name=Syndromic%20Surveillance). The package will
-be updated as the CDC provides new or different codes that are considered valid or invalid.
-
-You can view the concept codes that are considered valid by calling `data("facility_type")`.
+You can view the concept codes that are considered valid by calling data("facility_type").
 }

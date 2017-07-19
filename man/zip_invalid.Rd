@@ -15,8 +15,6 @@ A list of two data frames: examples and summary for invalid Patient_Zip.
 \description{
 This function will generate two data frames: first, a frame to be used later to extract invalid examples from;
 second, a frame that contains facility-level summaries for counts and percentages of invalid Patient_Zip.
-}
-\details{
 Patient_Zip is considered invalid if it: first, contains anything that is non-numeric or a hypen; second, is not five,
 nine, or ten characters (ten is included because of the hyphen); third, if it is all zeros, ones, or nines.
 }

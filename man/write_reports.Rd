@@ -28,12 +28,8 @@ This defaults to 0, which will not generate these example workbooks.}
 \description{
 This function calls upon all of the other functions in the package to write a large number of Excel workbooks. First,
 it generates a state summary workbook that shows percents and counts of nulls and invalids at both the facility and statewide level,
-as well as message delivery lag (i.e., timeliness reports).
-}
-\details{
-Second, it generates a summary workbook for every single facility that includes only information for that facility.
-
-Third, it generates an example workbook for every single facility, including detailed information on records and visits that are 
-null or invalid. These example workbooks make the function longer to run, so by default this function does not generate them 
-(see `nexamples` input below).
+as well as message delivery lag (i.e., timeliness reports). Second, it generates a summary workbook for every single facility
+that includes only information for that facility. Third, it generates an example workbook for every single facility, including 
+detailed information on records and visits that are null or invalid. These example workbooks make the function longer to run,
+so by default this function does not generate them (see `nexamples` input below).
 }

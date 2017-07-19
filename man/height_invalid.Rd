@@ -15,16 +15,12 @@ A list of two data frames: examples and summary for invalid Height and Height_Un
 \description{
 This function will generate two data frames: first, a frame to be used later to extract invalid examples from;
 second, a frame that contains facility-level summaries for counts and percentages of height invalids.
-}
-\details{
 The valid values were taken from the `"PHVS_HeightUnit_UCUM_V1.xls"` file from 
-Public Health Information Network Vocabulary Access and Distribution System value sets
-(https://phinvads.cdc.gov/vads/ViewView.action?name=Syndromic%20Surveillance). The package will
-be updated as the CDC provides new or different codes that are considered valid or invalid.
-
-You can view the concept names that are considered valid by calling `data("height_units")`.
-
+Public Health Information Network Vocabulary Access and Distribution System value sets.
 This function will test to see if valid Height_Units are reported. It also, checks however: If Height is reported,
 are Height_Units also reported? If Height_Units are reported, is Height also reported? Heights without Units are considered
 invalid; similarly, Units are considered invalid if Height is not reported with the Units.
+}
+\details{
+You can view the concept names that are considered valid by calling `data("height_units")`.
 }

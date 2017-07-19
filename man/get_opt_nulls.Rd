@@ -13,7 +13,7 @@ get_opt_nulls(data)
 A summary data frame that lists counts and percentages for null fields, summarized at facility-level.
 }
 \description{
-This will generate percent and counts of null message, by facility. All are calculated on a once-per-visit basis (see `get_req_nulls`).
+This will generate percent and counts of null message, by facility. All are calculated on a once-per-visit basis (see `?get_req_nulls`).
 }
 \details{
 The distinctions between optional vs. invalid and per visit vs. every message were made based off of our interpretation of the

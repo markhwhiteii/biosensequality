@@ -15,17 +15,13 @@ A list of two data frames: examples and summary for Initial_Pulse_Oximetry and I
 \description{
 This function will generate two data frames: first, a frame to be used later to extract invalid examples from;
 second, a frame that contains facility-level summaries for counts and percentages of pulse oximetry invalids.
-}
-\details{
 The valid values were taken from the `PHVS_PulseOximetryUnit_UCUM_V1.xls` file from 
-Public Health Information Network Vocabulary Access and Distribution System value sets
-(https://phinvads.cdc.gov/vads/ViewView.action?name=Syndromic%20Surveillance). The package will
-be updated as the CDC provides new or different codes that are considered valid or invalid.
-
-You can view the concept names that are considered valid by calling `data("pulse_oximetry_units")`.
-
+Public Health Information Network Vocabulary Access and Distribution System value sets.
 This function will do four invalid checks: Initial_Pulse_Oximetry is considered invalid if it is above 100 or less than 50;
 Initial_Pulse_Oximetry_Units are considered invalid if they are not in the valid concept names; Initial_Pulse_Oximetry is considered
 invalid if Units are not reported; lastly, Initial_Pulse_Oximetry_Units are considered invalid if a corresponding Initial_Pulse_Oximetry
 is not reported.
+}
+\details{
+You can view the concept names that are considered valid by calling data("pulse_oximetry_units").
 }

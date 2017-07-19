@@ -18,12 +18,9 @@ second, a frame that contains facility-level summaries for counts and percentage
 and Systolic_Diastolic_Blood_Pressure_Units. This function will also mark invalid if Units are given, but Blood_Pressure
 is not; it will also return invalid if Blood_Pressure is given, but Units are not. Therefore, it does three total checks:
 Are the units invalid? Are units missing, given a blood pressure? Is blood pressure missing, given units?
+The valid values were taken from the `PHVS_BloodPressureUnit_UCUM_V1.xls` file from Public Health Information 
+Network Vocabulary Access and Distribution System value sets.
 }
 \details{
-The valid values were taken from the `PHVS_BloodPressureUnit_UCUM_V1.xls` file from 
-Public Health Information Network Vocabulary Access and Distribution System value sets
-(https://phinvads.cdc.gov/vads/ViewView.action?name=Syndromic%20Surveillance). The package will
-be updated as the CDC provides new or different codes that are considered valid or invalid.
-
-You can view the concept names that are considered valid by calling `data("blood_pressure_units")`.
+You can view the concept names that are considered valid by calling data("blood_pressure_units").
 }

@@ -15,14 +15,10 @@ A list of two data frames: examples and summary for Weight and Weight_Units.
 \description{
 This function will generate two data frames: first, a frame to be used later to extract invalid examples from;
 second, a frame that contains facility-level summaries for counts and percentages of invalid Weight and Weight_Units.
+The valid values were taken from the `PHVS_WeightUnit_UCUM_V1.xls` file from 
+Public Health Information Network Vocabulary Access and Distribution System value sets.
+Weight is considered invalid of Weight_Units are missing; the reverse is also true.
 }
 \details{
-The valid values were taken from the `PHVS_WeightUnit_UCUM_V1.xls` file from 
-Public Health Information Network Vocabulary Access and Distribution System value sets
-(https://phinvads.cdc.gov/vads/ViewView.action?name=Syndromic%20Surveillance). The package will
-be updated as the CDC provides new or different codes that are considered valid or invalid.
-
 You can view the concept names that are considered valid by calling `data("weight_units")`.
-
-Weight is considered invalid of Weight_Units are missing; the reverse is also true.
 }
