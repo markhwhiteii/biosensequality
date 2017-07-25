@@ -11,4 +11,4 @@ After this, you can install the `biosensequality` package using the `install_git
 
 **Getting Started**
 
-Take a look at the introduction.Rmd document for an introductory vignette to show you how to get the package up-and-running.
+Take a look at the introductory vignette (http://rpubs.com/markhw/bioqual-vignette) for an introduction on how to use the function; also check out the explainer (http://rpubs.com/markhw/bioqual-interpret) on how to interpret the results.
