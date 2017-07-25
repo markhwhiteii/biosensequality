@@ -113,9 +113,13 @@ write_reports_local <- function(data, fnames, directory="", nexamples=0) {
                                       gather(key=Field, value=Value, convert=TRUE) %>% # suppressed warnings because this will tell you it converted all to characters
                                       distinct() %>% # get only distinct entries
                                       bind_rows(data.frame(Field="Facility_Name", Value=fname), .) %>% # add name to the top
-                                      bind_rows(data.frame(Field=c("Patient_Visit_Dates", "Message_Arrival_Dates"),
+                                      # bind with date ranges and number of records and visits
+                                      bind_rows(data.frame(Field=c("Patient_Visit_Dates", "Message_Arrival_Dates", 
+                                                                   "Number of Records", "Number of Visits"),
                                                            Value=c(paste("From", vmin, "to", vmax),
-                                                                   paste("From", amin, "to", amax)))) %>% # bind with date ranges
+                                                                   paste("From", amin, "to", amax),
+                                                                   nrow(filter(data, C_Biosense_Facility_ID==i)), 
+                                                                   n_groups(group_by(filter(data, C_Biosense_Facility_ID==i), C_BioSense_ID))))) %>% 
                                       right_join(hl7_values, ., by="Field")), # get hl7 values
                    firstColumn=TRUE, bandedRows=TRUE)
     setColWidths(wb, sheet1, 1:3, "auto")

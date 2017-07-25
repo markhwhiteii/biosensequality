@@ -1,14 +1,12 @@
 #' Write NSSP BioSense Platform Data Quality Summary Reports
 #' 
+#' @description 
 #' This function calls upon all of the other functions in the package to write a large number of Excel workbooks. First,
 #' it generates a state summary workbook that shows percents and counts of nulls and invalids at both the facility and statewide level,
-#' as well as message delivery lag (i.e., timeliness reports).
-#' 
-#' Second, it generates a summary workbook for every single facility that includes only information for that facility.
-#' 
-#' Third, it generates an example workbook for every single facility, including detailed information on records and visits that are 
-#' null or invalid. These example workbooks make the function longer to run, so by default this function does not generate them 
-#' (see `nexamples` input below).
+#' as well as message delivery lag (i.e., timeliness reports). Second, it generates a summary workbook for every single facility
+#' that includes only information for that facility. Third, it generates an example workbook for every single facility, including 
+#' detailed information on records and visits that are null or invalid. These example workbooks make the function longer to run,
+#' so by default this function does not generate them (see `nexamples` input below).
 #' 
 #' @param username Your BioSense username, as a string. This is the same username you may use to log into RStudio or Adminer.
 #' @param password Your BioSense password, as a string. This is the same password you may use to log into RStudio or Adminer.
@@ -132,9 +130,13 @@ write_reports <- function(username, password, table, mft, start, end, directory=
                      gather(key=Field, value=Value, convert=TRUE) %>% # suppressed warnings because this will tell you it converted all to characters
                      distinct() %>% # get only distinct entries
                      bind_rows(data.frame(Field="Facility_Name", Value=fname), .) %>% # add name to the top
-                     bind_rows(data.frame(Field=c("Patient_Visit_Dates", "Message_Arrival_Dates"),
+                     # bind with date ranges and number of records and visits
+                     bind_rows(data.frame(Field=c("Patient_Visit_Dates", "Message_Arrival_Dates", 
+                                                  "Number of Records", "Number of Visits"),
                                           Value=c(paste("From", vmin, "to", vmax),
-                                                  paste("From", amin, "to", amax)))) %>% # bind with date ranges
+                                                  paste("From", amin, "to", amax),
+                                                  nrow(filter(data, C_Biosense_Facility_ID==i)), 
+                                                  n_groups(group_by(filter(data, C_Biosense_Facility_ID==i), C_BioSense_ID))))) %>% 
                      right_join(hl7_values, ., by="Field")), # get hl7 values
                    firstColumn=TRUE, bandedRows=TRUE)
     setColWidths(wb, sheet1, 1:3, "auto")
