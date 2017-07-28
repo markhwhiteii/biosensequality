@@ -15,6 +15,10 @@ write_reports_local(data, fnames, directory = "", nexamples = 0)
 
 \item{nexamples}{An integer number of examples you would like for each type of invalid or null field in the examples workbooks for each facility.
 This defaults to 0, which will not generate these example workbooks.}
+
+\item{offset}{The number of hours you wish to offset Arrived_Date_Time (which is in UTC). The offset value is how far off your local time zone is from UTC. 
+For example, the Central Time Zone would set this to 5 or 6, depending on if it is daylight savings or not. This value should be an integer. 
+This is used for timeliness reports using the `va_lag` function.}
 }
 \description{
 The `write_reports` function will do a data pull using RODBC. In case you do not have a connection to BioSense_Platform through RODBC, you can

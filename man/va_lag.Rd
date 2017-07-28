@@ -4,12 +4,15 @@
 \alias{va_lag}
 \title{Visit-Arrival Lag}
 \usage{
-va_lag(data, names)
+va_lag(data, names, offset)
 }
 \arguments{
 \item{data}{The raw data from BioSense on which you will do these summaries.}
 
 \item{names}{A table of Facility_Name and C_Biosense_Facility_ID which taken from the MFT using the `pull_data` function.}
+
+\item{offset}{The number of hours you wish to offset Arrived_Date_Time (which is in UTC). The offset value is how far off your local time zone is from UTC. 
+For example, the Central Time Zone would set this to 5 or 6, depending on if it is daylight savings or not. This value should be an integer.}
 }
 \value{
 A data frame with three columns: facility name, facility ID, and average lag between patient visit and first record arrival.

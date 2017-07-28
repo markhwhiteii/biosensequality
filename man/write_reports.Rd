@@ -5,7 +5,7 @@
 \title{Write NSSP BioSense Platform Data Quality Summary Reports}
 \usage{
 write_reports(username, password, table, mft, start, end, directory = "",
-  nexamples = 0)
+  nexamples = 0, offset)
 }
 \arguments{
 \item{username}{Your BioSense username, as a string. This is the same username you may use to log into RStudio or Adminer.}
@@ -24,6 +24,10 @@ write_reports(username, password, table, mft, start, end, directory = "",
 
 \item{nexamples}{An integer number of examples you would like for each type of invalid or null field in the examples workbooks for each facility.
 This defaults to 0, which will not generate these example workbooks.}
+
+\item{offset}{The number of hours you wish to offset Arrived_Date_Time (which is in UTC). The offset value is how far off your local time zone is from UTC. 
+For example, the Central Time Zone would set this to 5 or 6, depending on if it is daylight savings or not. This value should be an integer. 
+This is used for timeliness reports using the `va_lag` function.}
 }
 \description{
 This function calls upon all of the other functions in the package to write a large number of Excel workbooks. First,
