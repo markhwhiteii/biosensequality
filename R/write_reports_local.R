@@ -10,6 +10,9 @@
 #' @param directory The directory where you would like to write the reports to (i.e., "~/Documents/MyReports"), as a string.
 #' @param nexamples An integer number of examples you would like for each type of invalid or null field in the examples workbooks for each facility.
 #' This defaults to 0, which will not generate these example workbooks.
+#' @param offset The number of hours you wish to offset Arrived_Date_Time (which is in UTC). The offset value is how far off your local time zone is from UTC. 
+#' For example, the Central Time Zone would set this to 5 or 6, depending on if it is daylight savings or not. This value should be an integer. 
+#' This is used for timeliness reports using the `va_lag` function.
 #' @import dplyr
 #' @import tidyr
 #' @import openxlsx
@@ -77,7 +80,7 @@ write_reports_local <- function(data, fnames, directory="", nexamples=0) {
   # sheet 4: visit-arrival lag
   sheet4 <- addWorksheet(wb, "Visit-Arrival Lag")
   writeDataTable(wb, sheet4,
-                 va_lag(data, fnames),
+                 va_lag(data, fnames, offset),
                  startCol=1, startRow=1, bandedRows=TRUE)
   setColWidths(wb, sheet4, 1:3, "auto")
   freezePane(wb, sheet4, firstActiveRow=2)
