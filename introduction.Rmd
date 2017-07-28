@@ -1,21 +1,14 @@
 ---
 title: "An Introduction to `biosensequality`"
-author: "Mark White"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+author: "Mark White | markhwhiteii@gmail.com"
+output: html_document
 ---
 
 The purpose of this package is to make it easy to produce automated data quality reports for the National Syndromic Surveillance Program's (NSSP) BioSense Platform. Data from this platform are emergency department records. Functions in this package will track null fields and invalid field entries, returning counts and percentages for each of these checks at both the facility and state-wide level. (Note: If the table you are querying from is not an entire state, then these checks are done table-wide). Functions in this package will also generate timeliness reports: How long was the average lag between a time when a patient visited the emergency department and when the NSSP received the first record for that visit?  
 
 ## Preparation
 
-If you want to use this package to both pull data *and* generate reports, it requires a connection to a database named "BioSense_Platform" with a username that is prepended with "BIOSENSE\\", using the `RODBC` package. This is the same log-in information that we use here at Kansas Department of Health and Environment (KDHE) Syndromic Surveillance to log-in to Adminer and RStudio Server. If you are using the RStudio Server instance from the NSSP, this driver should already be set up for you.  
-
-If you do not want to connect with RODBC or have the data stored locally, you can also use functions here that will skip the pulling data aspect and just focus on generating reports. You must make sure that the variables are named exactly the same as they were when you pulled them from **processed** tables in the database.
+If you want to use this package to both pull data *and* generate reports, it requires a connection to a database named "BioSense_Platform" with a username that is prepended with "BIOSENSE\\", using the `RODBC` package. This is the same log-in information that we use here at Kansas Department of Health and Environment (KDHE) Syndromic Surveillance to log-in to Adminer and RStudio Server. If you do not want to connect with RODBC or have the data stored locally, you can also use functions here that will skip the pulling data aspect and just focus on generating reports. You must make sure that the variables are named exactly the same as they were when you pulled them from **processed** tables in the database.
 
 This package can be downloaded from GitHub using the `devtools` package. If you do not have the `devtools` package, it can be installed by running `install.packages("devtools")`. After this, you can install the `biosensequality` package by running `devtools::install_github("markhwhiteii/biosensequality")` in the console. Then, just like any other package, you load it in your R session using `library(biosensequality)`.  
 
@@ -37,7 +30,7 @@ This function calls upon nearly all of the other functions in the package to run
 
 4. All of the previous checks are done grouped by facility. This function also generates the counts and percentages at the state level (or table level, if your processed table is not pulling down data from the entire state).  
 
-5. Timeliness reports. For each facility, this function will calculate the average time, in hours, between (a) when the patient visited the emergency department and (b) when the first record for this visit arrived to the NSSP BioSense Platform.  
+5. Timeliness reports. For each facility, this function will calculate the average time, in hours, between (a) when the patient visited the emergency department and (b) when the first record for this visit arrived to the NSSP BioSense Platform. For this, you need to specify an `offset` time. The time that the record arrives is in UTC, so you must choose how much to offset that by. You can easily Google how far your time zone is from UTC. For example, Central Time would enter in `5` or `6`, depending on if it is daylight savings or not. You can see more information about this in the documentation for both `write_reports` and `va_lag`.    
 
 6. Writes an Excel workbook to a specified directory called "State_Summary" that includes information described in 2 through 5.  
 
@@ -51,9 +44,10 @@ What does this look like? For example, let's say someone with a username `lskywa
 library(biosensequality)
 write_reports(username="lskywalker", password="xwingred5", 
               table="KS_PR_Processed", mft="KS_MFT",
-              start="2017-06-01", end="2017-06-30",
+              start="2017-06-01 00:00:00", 
+              end="2017-06-30 23:59:59",
               directory="~/Documents/JuneReports",
-              nexamples=20)
+              nexamples=20, offset=5)
 ```
 
 
@@ -65,5 +59,22 @@ This function does the exact same as above, except it skips Step 1 of pulling do
 library(biosensequality)
 write_reports_local(data=df, fnames=namekey,
               directory="~/Documents/JuneReports",
+              nexamples=20, offset=5)
+```
+
+
+### `write_facility`
+For a lightweight alternative, one could try the `write_facility` function. This function also takes a specific C_Biosense_Facility_ID and generates a summary file and an example file for that facility only. This takes far less time to run, and it might be useful in a situation where you are concerned with only what *one* facility is doing, and do not need an overall assessment of every single facility. The query would be the same as for `write_reports`, except now you enter a `facility` argument (and no `offset` argument, as this does not return a time lag. That can easily be done by using just the `va_lag` function):
+
+```{r eval=FALSE}
+library(biosensequality)
+write_facility(username="lskywalker", password="xwingred5", 
+              table="KS_PR_Processed", mft="KS_MFT",
+              start="2017-06-01 00:00:00", 
+              end="2017-06-30 23:59:59",
+              facility=3889
+              directory="~/Documents/JuneReports",
               nexamples=20)
 ```
+<br>
+<br>
