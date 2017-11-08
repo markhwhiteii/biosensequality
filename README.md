@@ -15,6 +15,8 @@ Take a look at the introductory vignette (http://rpubs.com/markhw/bioqual-vignet
 
 
 ## Updates
+* **2017-11-08:** The `write_facility` and `write_reports` functions now throw an error if the SQL query from the BioSense Platform returns zero cases.
+
 * **2017-10-26:** The `write_facility` function now includes the HL7 values for each field in the summary workbook.
 
 * **2017-07-28:** Added the function `write_facility`, which is a lightweight alternative to `write_reports`. While `write_reports` generates statewide summaries and separate summary and example workbooks for *each and every facility*, this function takes an extra argument, `facility`, (which will be the C_Biosense_Facility_ID for the facility you want) and generates a summary and example report *for that facility only.* It runs much, much quicker, and can be used when you only want to check-in on one facility.
