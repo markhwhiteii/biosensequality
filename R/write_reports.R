@@ -31,6 +31,7 @@ write_reports <- function(username, password, table, mft, start, end, directory=
   pull <- pull_data(username, password, table, mft, start, end)
   # save data into data
   data <- pull$data
+  if (nrow(data) == 0) stop("The query yielded no data.")
   # save names into names, getting rid of any duplicate names (take first listed)
   fnames <- pull$names %>% group_by(C_Biosense_Facility_ID) %>% slice(1) %>% ungroup()
   
