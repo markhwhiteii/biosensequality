@@ -2,7 +2,7 @@
 % Please edit documentation in R/cc_ar_invalid.R
 \name{cc_ar_invalid}
 \alias{cc_ar_invalid}
-\title{Getting Invalid Examples and Summaries for Chief_Complaint_Combo and Admit_Reason_Combo}
+\title{Getting Invalid Examples and Summaries for Chief_Complaint_Text and Admit_Reason_Description}
 \usage{
 cc_ar_invalid(data)
 }
@@ -10,10 +10,10 @@ cc_ar_invalid(data)
 \item{data}{The raw data from BioSense on which you will do the checks.}
 }
 \value{
-A list of two data frames: examples and summary for Chief_Complaint_Combo and Admit_Reason_Combo that are too short.
+A list of two data frames: examples and summary for Chief_Complaint_Text and Admit_Reason_Description that are too short.
 }
 \description{
 This function will generate two data frames: first, a frame to be used later to extract invalid examples from;
 second, a frame that contains facility-level summaries for for counts and percentages of Chief_Complaint and Admit_Reason
-combos that are shorter than three characters long.
+text/descriptions that are shorter than three characters long.
 }
