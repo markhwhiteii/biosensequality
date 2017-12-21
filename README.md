@@ -15,6 +15,8 @@ Take a look at the introductory vignette (http://rpubs.com/markhw/bioqual-vignet
 
 
 ## Updates
+* **2017-12-21:** The fields ending in `_Combo` are now changed to `Chief_Complaint_Text` and `Admit_Reason_Description`. Per Sophia Crossen at KDHE, this is because "the NSSP processing doesn’t create a Chief Complaint Combo if Chief Complaint Code is null, regardless of if Chief Complaint Text is populated."
+
 * **2017-11-08:** The `write_facility` and `write_reports` functions now throw an error if the SQL query from the BioSense Platform returns zero cases.
 
 * **2017-10-26:** The `write_facility` function now includes the HL7 values for each field in the summary workbook.
