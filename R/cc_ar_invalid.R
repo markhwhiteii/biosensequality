@@ -42,7 +42,7 @@ cc_ar_invalid <- function(data) {
     summarise(Chief_Complaint_Text_Short.Percent=round(mean(Any_Chief_Complaint_Text_Short, na.rm=TRUE)*100,2),
               Admit_Reason_Description_Short.Percent=round(mean(Any_Admit_Reason_Description_Short, na.rm=TRUE)*100,2),
               Chief_Complaint_Text_Short.Count=sum(Any_Chief_Complaint_Text_Short, na.rm=TRUE),
-              Admit_Reason_Description_Short.Count=sum(Any_Admit_Reason_Descriptions_Short, na.rm=TRUE))
+              Admit_Reason_Description_Short.Count=sum(Any_Admit_Reason_Description_Short, na.rm=TRUE))
 
   # output
   return(
